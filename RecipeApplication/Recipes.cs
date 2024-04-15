@@ -22,5 +22,15 @@ namespace RecipeApplication
             NumSteps = numSteps;
             Steps = new string[numSteps];
         }
+
+        public void AddIngredient(int index, string name, double quantity, string unit)
+        {
+            Ingredients[index] = new Ingredients { Name = name, Quantity = quantity, Units = unit };
+        }
+
+        public void AddStep(int index, string description)
+        {
+            Steps[index] = description;
+        }
     }
 }
