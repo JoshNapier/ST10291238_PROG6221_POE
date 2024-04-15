@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace RecipeApplication
 {
-    internal class Program
+    internal class Recipe
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
