@@ -21,7 +21,7 @@ namespace RecipeApplication
             Console.Write("How many steps of instructions?");
             int numSteps = int.Parse(Console.ReadLine());
 
-            Recipe recipe = new Recipe(name, numIngredients, numSteps);
+            Recipes recipe = new Recipes(name, numIngredients, numSteps);
 
 
         }

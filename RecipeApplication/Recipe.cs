@@ -8,10 +8,5 @@ namespace RecipeApplication
 {
     internal class Recipe
     {
-        public string[] Name { get; set; }
-        public string[] Ingredients { get; set; }
-        public string[] Steps { get; set; }
-
-
     }
 }
