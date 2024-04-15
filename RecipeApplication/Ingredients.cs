@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace RecipeApplication
 {
-    internal class Recipe
+    internal class Ingredients
     {
-
+        public string name { get; set; }
+        public double Quantity { get; set; }
+        public string Units { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace RecipeApplication
     {
         static void Main(string[] args)
         {
-
+            
         }
     }
 }
