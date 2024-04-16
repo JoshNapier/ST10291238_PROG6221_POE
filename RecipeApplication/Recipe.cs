@@ -10,10 +10,12 @@ namespace RecipeApplication
     {
         public void NewRecipe()
         {
-            Console.WriteLine("Recipe Creator Program");
+            Console.WriteLine("************Recipe Creator Program************");
 
-            Console.Write("What is the name of your recipe?");
+            Console.Write("What is the name of your recipe? ");
             string name = Console.ReadLine();
+
+            Console.WriteLine();
 
             int numIngredients;
             bool validNumIngredients = false;
@@ -30,6 +32,8 @@ namespace RecipeApplication
 
             } while (!validNumIngredients);
 
+            Console.WriteLine();
+
             int numSteps;       
             bool validNumSteps = false;
             do
@@ -44,6 +48,8 @@ namespace RecipeApplication
                 }
             } while (!validNumSteps);
 
+            Console.WriteLine();
+
             Recipes recipe = new Recipes(name, numIngredients, numSteps);
 
             for (int i = 0; i < numIngredients; i++)
@@ -51,13 +57,29 @@ namespace RecipeApplication
                 Console.WriteLine("Enter details for Ingredient " + (i + 1) + ":");
                 Console.Write("Name: ");
                 string ingredientName = Console.ReadLine();
-                Console.Write("Quantity: ");
-                double quantity = double.Parse(Console.ReadLine());
+
+                double quantity;
+                bool validQuantity = false;
+                do
+                {
+                    Console.Write("Quantity: ");
+                    string inputQuantity = Console.ReadLine();
+                    validQuantity = double.TryParse(inputQuantity, out quantity);
+
+                    if (!validQuantity)
+                    {
+                        Console.WriteLine("Please enter a valid double value for the quantity of the ingredient.");
+                    }
+                } while (!validQuantity);
+
                 Console.Write("Unit of Measurement: ");
                 string unit = Console.ReadLine();
 
                 recipe.AddIngredient(i, ingredientName, quantity, unit);
             }
+
+            Console.WriteLine();
+
             for (int i = 0; i < numSteps; i++)
             {
                 Console.WriteLine("Enter details for step " + (i + 1) + ":");
@@ -67,17 +89,21 @@ namespace RecipeApplication
                 recipe.AddStep(i, stepDescription);
             }
 
-            Console.WriteLine("Recipe Details: ");
+            Console.WriteLine();
+
+            Console.WriteLine("************Recipe Details************");
             NewMethod(recipe);
         }
         public void NewMethod(Recipes recipe)
         {
             recipe.PrintRecipe();
 
-            Console.Write("Select an option: ");
+            Console.WriteLine();
+            Console.WriteLine("Select an option: ");
             Console.WriteLine("1. Scale ingredient quantities");
             Console.WriteLine("2. Reset ingredient quantities");
             Console.WriteLine("3. Clear all recipe data");
+            Console.WriteLine("4. Exit");
 
             int option = int.Parse(Console.ReadLine());
 
@@ -99,6 +125,9 @@ namespace RecipeApplication
                     recipe.ClearRecipe();
                     Console.WriteLine("Recipe data cleared. Ready to create a new recipe.");
                     NewRecipe();
+                    break;
+                case 4:
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Invalid option.");

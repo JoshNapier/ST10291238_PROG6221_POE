@@ -31,19 +31,19 @@ namespace RecipeApplication
 
         public void PrintRecipe()
         {
-            Console.WriteLine("Recipe Name: " + Name);
-            Console.WriteLine("Number of Ingredients: " + Ingredients.Length);
+            Console.WriteLine("Name: " + Name);
+            Console.WriteLine();
+            Console.WriteLine("----Ingredients----");
 
             for (int i = 0; i < Ingredients.Length; i++)
             {
                 Console.WriteLine("Ingredient " + (i + 1) + ":");
                 Console.WriteLine("Name: " + Ingredients[i].Name);
-                Console.WriteLine("Quantity: " + Ingredients[i].Quantity);
-                Console.WriteLine("Unit of Measurement: " + Ingredients[i].Units);
+                Console.WriteLine("Quantity: " + Ingredients[i].Quantity + " " + Ingredients[i].Units);
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Number of Steps: " + Steps.Length);
+            Console.WriteLine("----Instructions----");
 
             for (int i = 0; i < Steps.Length; i++)
             {
