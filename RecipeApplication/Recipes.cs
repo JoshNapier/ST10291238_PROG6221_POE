@@ -38,7 +38,9 @@ namespace RecipeApplication
         {
             Console.WriteLine("Name: " + Name);
             Console.WriteLine();
-            Console.WriteLine("----Ingredients----");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("----Ingredients----", Console.ForegroundColor);
+            Console.ResetColor();
 
             for (int i = 0; i < Ingredients.Length; i++)
             {
@@ -48,7 +50,9 @@ namespace RecipeApplication
                 Console.WriteLine();
             }
 
-            Console.WriteLine("----Instructions----");
+            Console.ForegroundColor= ConsoleColor.Cyan;
+            Console.WriteLine("----Instructions----", Console.ForegroundColor);
+            Console.ResetColor();
 
             for (int i = 0; i < Steps.Length; i++)
             {

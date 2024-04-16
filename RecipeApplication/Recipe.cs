@@ -15,7 +15,9 @@ namespace RecipeApplication
     {
         public void NewRecipe()
         {
-            Console.WriteLine("************Recipe Creator Program************");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("************Recipe Creator Program************", Console.ForegroundColor);
+            Console.ResetColor();
 
             Console.Write("What is the name of your recipe? ");
             string name = Console.ReadLine();
@@ -96,7 +98,9 @@ namespace RecipeApplication
 
             Console.WriteLine();
 
-            Console.WriteLine("************Recipe Details************");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("************Recipe Details************", Console.ForegroundColor);
+            Console.ResetColor();
             NewMethod(recipe);
         }
 //-----------------------------------------------------------------------
