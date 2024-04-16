@@ -112,5 +112,21 @@ namespace RecipeApplication
                 Ingredients[i].Quantity *= factor;
             }
         }
+
+        public void ResetQuantities()
+        {
+            for (int i = 0; i < Ingredients.Length; i++)
+            {
+                Ingredients[i].Quantity = quantity;
+            }
+        }
+
+        public void ClearRecipe()
+        {
+            Name = "";
+            Ingredients = new Ingredients[0];
+            Steps = new string[0];
+        }
+
     }
 }
