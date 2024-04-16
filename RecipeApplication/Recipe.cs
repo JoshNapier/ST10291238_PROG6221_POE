@@ -47,16 +47,15 @@ namespace RecipeApplication
             Console.WriteLine("Recipe Details: ");
             NewMethod(recipe);
         }
-        private static void NewMethod(Recipes recipe)
+        public void NewMethod(Recipes recipe)
         {
             recipe.PrintRecipe();
 
-            Console.WriteLine("\nOptions:");
+            Console.Write("Select an option: ");
             Console.WriteLine("1. Scale ingredient quantities");
             Console.WriteLine("2. Reset ingredient quantities");
             Console.WriteLine("3. Clear all recipe data");
 
-            Console.Write("Select an option: ");
             int option = int.Parse(Console.ReadLine());
 
             switch (option)
@@ -66,14 +65,17 @@ namespace RecipeApplication
                     double factor = double.Parse(Console.ReadLine());
                     recipe.ScaleQuantities(factor);
                     Console.WriteLine("Ingredient quantities scaled.");
+                    recipe.PrintRecipe();
                     break;
                 case 2:
                     recipe.ResetQuantities();
                     Console.WriteLine("Ingredient quantities reset.");
+                    recipe.PrintRecipe();
                     break;
                 case 3:
                     recipe.ClearRecipe();
                     Console.WriteLine("Recipe data cleared. Ready to create a new recipe.");
+                    NewRecipe();
                     break;
                 default:
                     Console.WriteLine("Invalid option.");

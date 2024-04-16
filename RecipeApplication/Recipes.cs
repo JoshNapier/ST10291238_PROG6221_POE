@@ -6,58 +6,6 @@ using System.Threading.Tasks;
 
 namespace RecipeApplication
 {
-    //internal class Recipes
-    //{
-    //    int NumIngredients;
-    //    int NumSteps;
-
-    //    public string[] Name { get; set; }
-    //    public string[] Ingredients { get; set; }
-    //    public string[] Steps { get; set; }
-
-    //    public Recipes(string name, int numIngredients, int numSteps, Ingredients[] ingredients)
-    //    {
-    //        Name = name;
-    //        NumIngredients = numIngredients;
-    //        Ingredients[] ingredients1 = new Ingredients[numIngredients];
-    //        NumSteps = numSteps;
-    //        Steps = new string[numSteps];
-    //    }
-
-    //    public void AddIngredient(int index, string name, double quantity, string unit)
-    //    {
-    //        Ingredients[index] = new Ingredients { Name = name, Quantity = quantity, Units = unit };
-    //    }
-
-    //    public void AddStep(int index, string description)
-    //    {
-    //        Steps[index] = description;
-    //    }
-
-    //    public void PrintRecipe()
-    //    {
-    //        Console.WriteLine("Recipe Name: " + Name);
-    //        Console.WriteLine("Number of Ingredients: " + NumIngredients);
-
-    //        for (int i = 0; i < NumIngredients; i++)
-    //        {
-    //            Console.WriteLine("Ingredient " + (i + 1) + ":");
-    //            Console.WriteLine("Name " + Ingredients[i].Name);
-    //            Console.WriteLine("Quantity: " + Ingredients[i].Quantity);
-    //            Console.WriteLine("Unit of Measurement: " + Ingredients[i].Units);
-    //            Console.WriteLine();
-    //        }
-
-    //        Console.WriteLine("Number of Steps: " + NumSteps);
-
-    //        for (int i = 0; i < NumSteps; i++)
-    //        {
-    //            Console.WriteLine("Step " + (i +1) + ":");
-    //            Console.WriteLine("Description: " + Steps[i]);
-    //            Console.WriteLine();
-    //        }
-    //    }
-    //}
     internal class Recipes
     {
         public string Name { get; private set; }
@@ -117,7 +65,7 @@ namespace RecipeApplication
         {
             for (int i = 0; i < Ingredients.Length; i++)
             {
-                Ingredients[i].Quantity = quantity;
+                Ingredients[i].Quantity = 0;
             }
         }
 
