@@ -104,6 +104,13 @@ namespace RecipeApplication
                 Console.WriteLine();
             }
         }
-    }
 
+        public void ScaleQuantities(double factor)
+        {
+            for (int i = 0; i < Ingredients.Length; i++)
+            {
+                Ingredients[i].Quantity *= factor;
+            }
+        }
+    }
 }
