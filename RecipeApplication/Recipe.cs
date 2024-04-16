@@ -15,11 +15,34 @@ namespace RecipeApplication
             Console.Write("What is the name of your recipe?");
             string name = Console.ReadLine();
 
-            Console.Write("How many ingredients?");
-            int numIngredients = int.Parse(Console.ReadLine());
+            int numIngredients;
+            bool validNumIngredients = false;
+            do
+            {
+                Console.Write("How many ingredients? ");
+                string inputIngredients = Console.ReadLine();
+                validNumIngredients = int.TryParse(inputIngredients, out numIngredients);
 
-            Console.Write("How many steps of instructions?");
-            int numSteps = int.Parse(Console.ReadLine());
+                if (!validNumIngredients)
+                {
+                    Console.WriteLine("Please enter a valid integer for the number of ingredients.");
+                }
+
+            } while (!validNumIngredients);
+
+            int numSteps;       
+            bool validNumSteps = false;
+            do
+            {
+                Console.Write("How many steps of instructions? ");
+                string inputSteps = Console.ReadLine();
+                validNumSteps = int.TryParse(inputSteps, out numSteps);
+
+                if (!validNumSteps)
+                {
+                    Console.WriteLine("Please enter a valid integer for the number of steps.");
+                }
+            } while (!validNumSteps);
 
             Recipes recipe = new Recipes(name, numIngredients, numSteps);
 
