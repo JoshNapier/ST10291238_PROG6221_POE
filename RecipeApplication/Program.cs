@@ -5,9 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RecipeApplication
-{
+{/// <summary>
+/// Josh Napier
+/// ST10291238
+/// Module: PRG6221
+/// </summary>
+//-----------------------------------------------------------------------
     internal class Program
     {
+//-----------------------------------------------------------------------
         static void Main(string[] args)
         {
             while (true)
@@ -36,5 +42,7 @@ namespace RecipeApplication
             }
 
         }
+//-----------------------------------------------------------------------
     }
 }
+//-------------------------------------- END OF FILE --------------------------------------

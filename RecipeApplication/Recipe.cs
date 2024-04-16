@@ -5,7 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RecipeApplication
-{
+{/// <summary>
+/// Josh Napier
+/// ST10291238
+/// Module: PRG6221
+/// </summary>
+//-----------------------------------------------------------------------
     internal class Recipe
     {
         public void NewRecipe()
@@ -94,46 +99,52 @@ namespace RecipeApplication
             Console.WriteLine("************Recipe Details************");
             NewMethod(recipe);
         }
+//-----------------------------------------------------------------------
         public void NewMethod(Recipes recipe)
         {
             recipe.PrintRecipe();
 
-            Console.WriteLine();
-            Console.WriteLine("Select an option: ");
-            Console.WriteLine("1. Scale ingredient quantities");
-            Console.WriteLine("2. Reset ingredient quantities");
-            Console.WriteLine("3. Clear all recipe data");
-            Console.WriteLine("4. Exit");
-
-            int option = int.Parse(Console.ReadLine());
-
-            switch (option)
+            while (true)
             {
-                case 1:
-                    Console.Write("Enter scaling factor (0.5/2/3): ");
-                    double factor = double.Parse(Console.ReadLine());
-                    recipe.ScaleQuantities(factor);
-                    Console.WriteLine("Ingredient quantities scaled.");
-                    recipe.PrintRecipe();
-                    break;
-                case 2:
-                    recipe.ResetQuantities();
-                    Console.WriteLine("Ingredient quantities reset.");
-                    recipe.PrintRecipe();
-                    break;
-                case 3:
-                    recipe.ClearRecipe();
-                    Console.WriteLine("Recipe data cleared. Ready to create a new recipe.");
-                    NewRecipe();
-                    break;
-                case 4:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid option.");
-                    break;
-            }
+                Console.WriteLine();
+                Console.WriteLine("Select an option: ");
+                Console.WriteLine("1. Scale ingredient quantities");
+                Console.WriteLine("2. Reset ingredient quantities");
+                Console.WriteLine("3. Clear all recipe data");
+                Console.WriteLine("4. Exit");
 
+                int option = int.Parse(Console.ReadLine());
+
+                switch (option)
+                {
+                    case 1:
+                        Console.Write("Enter scaling factor: ");
+                        double factor = double.Parse(Console.ReadLine());
+                        recipe.ScaleQuantities(factor);
+                        Console.WriteLine("Ingredient quantities scaled.");
+                        recipe.PrintRecipe();
+                        break;
+                    case 2:
+                        recipe.ResetQuantities();
+                        Console.WriteLine("Ingredient quantities reset.");
+                        recipe.PrintRecipe();
+                        break;
+                    case 3:
+                        recipe.ClearRecipe();
+                        Console.WriteLine("Recipe data cleared. Ready to create a new recipe.");
+                        Console.WriteLine();
+                        NewRecipe();
+                        break;
+                    case 4:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option.");
+                        break;
+                }
+            }
         }
+//-----------------------------------------------------------------------
     }
 }
+//-------------------------------------- END OF FILE --------------------------------------
