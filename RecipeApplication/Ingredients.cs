@@ -8,11 +8,12 @@ namespace RecipeApplication
 {/// <summary>
 /// Josh Napier
 /// ST10291238
-/// Module: PRG6221
+/// Module: PROG6221
 /// </summary>
 //-----------------------------------------------------------------------
     internal class Ingredients
     {
+        //Getters and setters of each component of ingredients
         public string Name { get; set; }
         public double Quantity { get; set; }
         public string Units { get; set; }

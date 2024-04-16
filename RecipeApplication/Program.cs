@@ -8,7 +8,7 @@ namespace RecipeApplication
 {/// <summary>
 /// Josh Napier
 /// ST10291238
-/// Module: PRG6221
+/// Module: PROG6221
 /// </summary>
 //-----------------------------------------------------------------------
     internal class Program
@@ -18,8 +18,9 @@ namespace RecipeApplication
         {
             while (true)
             {
-                Recipe recipe = new Recipe();
+                Recipe recipe = new Recipe();//Creates an object of the Recipe class
 
+                //Beginning message upon running
                 Console.WriteLine("Welcome to the Recipe Creation Programm!");
                 Console.WriteLine("Choose an option below:");
                 Console.WriteLine("1. Create a new recipe");
@@ -27,7 +28,7 @@ namespace RecipeApplication
 
                 int option = int.Parse(Console.ReadLine());
 
-                switch (option)
+                switch (option)//Switch case for choosing option
                 {
                     case 1:
                         recipe.NewRecipe();
