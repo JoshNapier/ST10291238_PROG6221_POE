@@ -13,6 +13,8 @@ namespace RecipeApplication
 //-----------------------------------------------------------------------
     internal class Recipe
     {
+
+
         public void NewRecipe()//Method called whenever a new recipe is created
         {
             Console.ForegroundColor = ConsoleColor.Red;//Declaring colour of text
@@ -58,7 +60,7 @@ namespace RecipeApplication
             Console.WriteLine();
 
             //Creates an object of the Recipes class with the name, number of ingredients and number of steps as parameters
-            Recipes recipe = new Recipes(name, numIngredients, numSteps);
+            Recipes recipe = new Recipes(name);
 
             for (int i = 0; i < numIngredients; i++)//For Loop that loops according to the number of ingredients inputted
             {
@@ -83,8 +85,25 @@ namespace RecipeApplication
                 Console.Write("Unit of Measurement: ");
                 string unit = Console.ReadLine();//Takes in name of unit of measurement
 
-                //Calls method that adds data to ingredients array
-                recipe.AddIngredient(i, ingredientName, quantity, unit);
+                double calories;//Variable used for calories of ingredients
+                bool validCalories = false;
+                do
+                {
+                    Console.Write("Calories: ");
+                    string inputCalories = Console.ReadLine();
+                    validCalories = double.TryParse(inputCalories, out calories);//TryParse that decides if the input value is a valid double
+
+                    if (!validCalories)
+                    {
+                        Console.WriteLine("Please enter a valid double value for the calories of the ingredient.");//Error message if value inputted is not a valid double value
+                    }
+                } while (!validCalories);
+
+                Console.Write("Food Group: ");
+                string foodGroup = Console.ReadLine();//Takes in name of food group
+
+                //Calls method that adds data to ingredients list
+                recipe.AddIngredient(new Ingredients { Name = ingredientName, Quantity = quantity, Units = unit, Calories = calories, FoodGroup = foodGroup });
             }
 
             Console.WriteLine();
@@ -95,17 +114,19 @@ namespace RecipeApplication
                 Console.Write("Description: ");
                 string stepDescription = Console.ReadLine();//Takes in description of instruction step 
 
-                recipe.AddStep(i, stepDescription);//Calls method that adds data to steps array
+                recipe.AddStep(stepDescription);//Calls method that adds data to steps list
             }
 
             Console.WriteLine();
+
+            recipe.CheckCalories();//Calls method to check if total calories exceed 300
 
             Console.ForegroundColor = ConsoleColor.Green;//Declaring colour of text
             Console.WriteLine("************Recipe Details************", Console.ForegroundColor);
             Console.ResetColor();//Resets colour of text to default
             CreatedRecipe(recipe);
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
         public void CreatedRecipe(Recipes recipe)
         {
             recipe.PrintRecipe();//Calls method to print recipe details
@@ -151,7 +172,8 @@ namespace RecipeApplication
                 }
             }
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
+
     }
 }
 //-------------------------------------- END OF FILE --------------------------------------

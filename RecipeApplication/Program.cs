@@ -13,9 +13,12 @@ namespace RecipeApplication
 //-----------------------------------------------------------------------
     internal class Program
     {
-//-----------------------------------------------------------------------
+        private static List<Recipes> recipeList = new List<Recipes>();//List for recipe objects
+
+        //-----------------------------------------------------------------------
         static void Main(string[] args)
         {
+
             while (true)
             {
                 Recipe recipe = new Recipe();//Creates an object of the Recipe class
@@ -24,7 +27,8 @@ namespace RecipeApplication
                 Console.WriteLine("Welcome to the Recipe Creation Programm!");
                 Console.WriteLine("Choose an option below:");
                 Console.WriteLine("1. Create a new recipe");
-                Console.WriteLine("2. Exit");
+                Console.WriteLine("2. View recipes");
+                Console.WriteLine("3. Exit");
 
                 int option = int.Parse(Console.ReadLine());
 
@@ -34,6 +38,17 @@ namespace RecipeApplication
                         recipe.NewRecipe();
                         break;
                     case 2:
+                        if (recipeList.Count == 0)
+                        {
+                            Console.WriteLine("No recipes to display");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            DisplayRecipes();
+                        }
+                        break;
+                    case 3:
                         Environment.Exit(0);
                         break;
                     default:
@@ -43,7 +58,26 @@ namespace RecipeApplication
             }
 
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
+        public static void DisplayRecipes()
+        {
+            var sortedRecipes = recipeList.OrderBy(r => r.Name).ToList();//Sorts recipes in alphabetical order
+
+            Console.WriteLine("List of Recipes:");
+            for (int i = 0; i < sortedRecipes.Count; i++)//For Loop that loops according to the length of the sorted recipes list
+            {
+                Console.WriteLine($"{i + 1}. {sortedRecipes[i].Name}");//Prints recipe name taken from sorted recipes list
+            }
+
+            Console.WriteLine("Enter the number of the recipe to view it's details, or enter 0 to return");
+            int choice = int.Parse(Console.ReadLine());//Takes in choice of recipe to view
+
+            if (choice > 0 && choice <= sortedRecipes.Count)
+            {
+                sortedRecipes[choice - 1].PrintRecipe();//Prints recipe details of chosen recipe
+            }
+        }
+        //-----------------------------------------------------------------------
     }
 }
 //-------------------------------------- END OF FILE --------------------------------------

@@ -17,7 +17,9 @@ namespace RecipeApplication
         public string Name { get; set; }
         public double Quantity { get; set; }
         public string Units { get; set; }
+        public double Calories { get; set; }
+        public string FoodGroup { get; set; }
     }
-//-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
 }
 //-------------------------------------- END OF FILE --------------------------------------

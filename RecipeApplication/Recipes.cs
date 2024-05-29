@@ -14,28 +14,31 @@ namespace RecipeApplication
     internal class Recipes
     {
         public string Name { get; private set; }//Getter and setter for recipe name
-        private Ingredients[] Ingredients;//Array for recipe ingredients
-        private string[] Steps;//Array for recipe instruction steps
-//-----------------------------------------------------------------------
-        public Recipes(string name, int numIngredients, int numSteps)//Constructor for Recipes class
+        private List<Ingredients> IngredientsList;//List for recipe ingredients
+        private List<string> Steps;//Array for recipe instruction steps
+
+        public delegate void CaloriesExceededHandler(string message);
+        public event CaloriesExceededHandler OnCaloriesExceeded;
+        //-----------------------------------------------------------------------
+        public Recipes(string name)//Constructor for Recipes class
         {
             Name = name;
-            Ingredients = new Ingredients[numIngredients];
-            Steps = new string[numSteps];
+            IngredientsList = new List<Ingredients>();
+            Steps = new List<string>();
         }
-//-----------------------------------------------------------------------
-        public void AddIngredient(int index, string name, double quantity, string unit)
+        //-----------------------------------------------------------------------
+        public void AddIngredient(Ingredients ingredient)
         {
-            //Adds ingredients object to ingredients array with name, quantity and units as parameters
-            Ingredients[index] = new Ingredients { Name = name, Quantity = quantity, Units = unit };
+            //Adds ingredients object to ingredients list
+            IngredientsList.Add(ingredient);
         }
-//-----------------------------------------------------------------------
-        public void AddStep(int index, string description)
+        //-----------------------------------------------------------------------
+        public void AddStep(string description)
         {
-            //Adds description to steps array
-            Steps[index] = description;
+            //Adds description to steps list
+            Steps.Add(description);
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
         public void PrintRecipe()
         {
             Console.WriteLine("Name: " + Name);
@@ -44,11 +47,13 @@ namespace RecipeApplication
             Console.WriteLine("----Ingredients----", Console.ForegroundColor);
             Console.ResetColor();//Resets colour of text to default
 
-            for (int i = 0; i < Ingredients.Length; i++)//For Loop that loops according to the length of the ingredients array
+            for (int i = 0; i < IngredientsList.Count; i++)//For Loop that loops according to the length of the ingredients list
             {
                 Console.WriteLine("Ingredient " + (i + 1) + ":");
-                Console.WriteLine("Name: " + Ingredients[i].Name);//Prints ingredient name taken from array
-                Console.WriteLine("Quantity: " + Ingredients[i].Quantity + " " + Ingredients[i].Units);//Prints ingredient quantity and unit taken from array
+                Console.WriteLine("Name: " + IngredientsList[i].Name);//Prints ingredient name taken from array
+                Console.WriteLine("Quantity: " + IngredientsList[i].Quantity + " " + IngredientsList[i].Units);//Prints ingredient quantity and unit taken from array
+                Console.WriteLine("Calories: " + IngredientsList[i].Calories);//Prints ingredient calories taken from list
+                Console.WriteLine("Food Group: " + IngredientsList[i].FoodGroup);//Prints ingredient food group taken from list
                 Console.WriteLine();
             }
 
@@ -56,37 +61,46 @@ namespace RecipeApplication
             Console.WriteLine("----Instructions----", Console.ForegroundColor);
             Console.ResetColor();//Resets colour of text to default
 
-            for (int i = 0; i < Steps.Length; i++)//For Loop that loops according to the length of the steps array
+            for (int i = 0; i < Steps.Count; i++)//For Loop that loops according to the length of the steps array
             {
                 Console.WriteLine("Step " + (i + 1) + ":");
                 Console.WriteLine("Description: " + Steps[i]);
                 Console.WriteLine();
             }
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
         public void ScaleQuantities(double factor)
         {
-            for (int i = 0; i < Ingredients.Length; i++)//For Loop that loops according to the length of the ingredients array
+            for (int i = 0; i < IngredientsList.Count; i++)//For Loop that loops according to the length of the ingredients list
             {
-                Ingredients[i].Quantity *= factor;//Multiplies the value of quantity by the value of factor
+                IngredientsList[i].Quantity *= factor;//Multiplies the value of quantity by the value of factor
             }
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
         public void ResetQuantities()
         {
-            for (int i = 0; i < Ingredients.Length; i++)//For Loop that loops according to the length of the ingredients array
+            for (int i = 0; i < IngredientsList.Count; i++)//For Loop that loops according to the length of the ingredients array
             {
-                Ingredients[i].Quantity = 0;//Resets the value of quantity to zero
+                IngredientsList[i].Quantity = 0;//Resets the value of quantity to zero
             }
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
         public void ClearRecipe()//Clears data of every field for recipe
         {
             Name = "";
-            Ingredients = new Ingredients[0];
-            Steps = new string[0];
+            IngredientsList.Clear();
+            Steps.Clear();
         }
-//-----------------------------------------------------------------------
+        //-----------------------------------------------------------------------
+        public void CheckCalories()
+        {
+            double totalCalories = IngredientsList.Sum(ingredient => ingredient.Calories);
+            if (totalCalories > 300)
+            {
+                OnCaloriesExceeded?.Invoke($"Total calories for {Name} exceed 300");
+            }
+        }
+        //-----------------------------------------------------------------------
     }
 }
 //-------------------------------------- END OF FILE --------------------------------------
