@@ -102,9 +102,20 @@ namespace RecipeApplication
         //-----------------------------------------------------------------------
         public void ClearRecipe()//Clears data of every field for recipe
         {
-            Name = "";//Clears name
-            IngredientsList.Clear();//Clears ingredients list
-            Steps.Clear();//Clears steps list
+            Console.WriteLine("Are you sure you want to clear the recipe? (Y/N)");//Asks user for confirmation
+            string confirmation = Console.ReadLine();
+
+            if (confirmation.ToUpper() == "Y")//If user enters Y, then clear recipe
+            {
+                Name = "";//Clears name
+                IngredientsList.Clear();//Clears ingredients list
+                Steps.Clear();//Clears steps list
+            }
+            else//If user enters N, then cancel clear
+            {
+                Console.WriteLine("Recipe clearing cancelled.");//Prints message to user
+            }
+
         }
         //-----------------------------------------------------------------------
         public void CheckCalories()//Method to check if total calories exceed 300 and display message to user
