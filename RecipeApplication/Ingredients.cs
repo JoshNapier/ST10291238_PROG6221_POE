@@ -11,14 +11,14 @@ namespace RecipeApplication
 /// Module: PROG6221
 /// </summary>
 //-----------------------------------------------------------------------
-    internal class Ingredients
+    public class Ingredients
     {
         //Getters and setters of each component of ingredients
-        public string Name { get; set; }
-        public double Quantity { get; set; }
-        public string Units { get; set; }
-        public double Calories { get; set; }
-        public string FoodGroup { get; set; }
+        public string Name { get; set; }//Getter and setter for ingredient name
+        public double Quantity { get; set; }//Getter and setter for ingredient quantity
+        public string Units { get; set; }//Getter and setter for ingredient units
+        public double Calories { get; set; }//Getter and setter for ingredient calories
+        public string FoodGroup { get; set; }//Getter and setter for ingredient food group
     }
     //-----------------------------------------------------------------------
 }

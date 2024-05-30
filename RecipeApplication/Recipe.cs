@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +13,9 @@ namespace RecipeApplication
 /// Module: PROG6221
 /// </summary>
 //-----------------------------------------------------------------------
-    internal class Recipe
+    public class Recipe
     {
-
-
-        public void NewRecipe()//Method called whenever a new recipe is created
+        public Recipes NewRecipe()//Method called whenever a new recipe is created
         {
             Console.ForegroundColor = ConsoleColor.Red;//Declaring colour of text
             Console.WriteLine("************Recipe Creator Program************", Console.ForegroundColor);
@@ -99,9 +99,44 @@ namespace RecipeApplication
                     }
                 } while (!validCalories);
 
-                Console.Write("Food Group: ");
-                string foodGroup = Console.ReadLine();//Takes in name of food group
+                Console.WriteLine("Please choose a food group for this ingredient: ");//Prompts user to choose a food group
+                Console.WriteLine("1. Starchy foods");
+                Console.WriteLine("2. Fruits and vegetables");
+                Console.WriteLine("3. Dry beans, peas, lentils and soya");
+                Console.WriteLine("4. Chicken, fish, meat and eggs");
+                Console.WriteLine("5. Milk and dairy products");
+                Console.WriteLine("6. Fats and oil");
+                Console.WriteLine("7. Water");
+                int choice = int.Parse(Console.ReadLine());//Takes in choice of food group
+                string foodGroup = "";//Variable used for food group of ingredients
 
+                switch (choice)//Switch case for choosing food group
+                {
+                    case 1:
+                        foodGroup = "Starchy foods";//Assigns food group to variable
+                        break;
+                    case 2:
+                        foodGroup = "Fruits and vegetables";//Assigns food group to variable
+                        break;
+                    case 3:
+                        foodGroup = "Dry beans, peas, lentils and soya";//Assigns food group to variable
+                        break;
+                    case 4:
+                        foodGroup = "Chicken, fish, meat and eggs";//Assigns food group to variable
+                        break;
+                    case 5:
+                        foodGroup = "Milk and dairy products";//Assigns food group to variable
+                        break;
+                    case 6:
+                        foodGroup = "Fats and oil";//Assigns food group to variable
+                        break;
+                    case 7:
+                        foodGroup = "Water";//Assigns food group to variable
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice");//Error message if invalid choice is entered
+                        break;
+                }
                 //Calls method that adds data to ingredients list
                 recipe.AddIngredient(new Ingredients { Name = ingredientName, Quantity = quantity, Units = unit, Calories = calories, FoodGroup = foodGroup });
             }
@@ -125,9 +160,11 @@ namespace RecipeApplication
             Console.WriteLine("************Recipe Details************", Console.ForegroundColor);
             Console.ResetColor();//Resets colour of text to default
             CreatedRecipe(recipe);
+
+            return recipe;//Returns recipe object
         }
         //-----------------------------------------------------------------------
-        public void CreatedRecipe(Recipes recipe)
+        public bool CreatedRecipe(Recipes recipe)
         {
             recipe.PrintRecipe();//Calls method to print recipe details
 
@@ -139,7 +176,8 @@ namespace RecipeApplication
                 Console.WriteLine("1. Scale ingredient quantities");
                 Console.WriteLine("2. Reset ingredient quantities");
                 Console.WriteLine("3. Clear all recipe data");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Return to main menu");
+                Console.WriteLine("5. Exit");
 
                 int option = int.Parse(Console.ReadLine());//Parses integer to a string value
 
@@ -147,13 +185,13 @@ namespace RecipeApplication
                 {
                     case 1:
                         Console.Write("Enter scaling factor: ");
-                        double factor = double.Parse(Console.ReadLine());//Parses double to a string value
+                        double factor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);//Parses double to a string value
                         recipe.ScaleQuantities(factor);//Calls method to scale quantities with the variable factor as parameter
                         Console.WriteLine("Ingredient quantities scaled.");
                         recipe.PrintRecipe();//Calls method to print recipe details after scaling quantities
                         break;
                     case 2:
-                        recipe.ResetQuantities();//Calls method to reset quantities
+                        recipe.ResetQuantities();//Calls method to reset quantities with a new instance of Ingredients as parameter
                         Console.WriteLine("Ingredient quantities reset.");
                         recipe.PrintRecipe();//Calls method to print recipe details after resetting quantities
                         break;
@@ -164,16 +202,17 @@ namespace RecipeApplication
                         NewRecipe();//Calls method to create new recipe with new data
                         break;
                     case 4:
+                        return true;// Indicating that the user wants to return to the main menu
+                    case 5:
                         Environment.Exit(0);//Ends programm when selected
                         break;
                     default:
-                        Console.WriteLine("Invalid option.");
+                        Console.WriteLine("Invalid option.");//Error message if option selected is invalid
                         break;
                 }
             }
         }
         //-----------------------------------------------------------------------
-
     }
 }
 //-------------------------------------- END OF FILE --------------------------------------

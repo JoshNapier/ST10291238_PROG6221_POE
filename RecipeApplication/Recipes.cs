@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RecipeApplication
-{/// <summary>
-/// Josh Napier
-/// ST10291238
-/// Module: PROG6221
-/// </summary>
-//-----------------------------------------------------------------------
-    internal class Recipes
+{
+    /// <summary>
+    /// Josh Napier
+    /// ST10291238
+    /// Module: PROG6221
+    /// </summary>
+    //-----------------------------------------------------------------------
+    public class Recipes
     {
         public string Name { get; private set; }//Getter and setter for recipe name
         private List<Ingredients> IngredientsList;//List for recipe ingredients
         private List<string> Steps;//Array for recipe instruction steps
+        private List<double> OriginalQuantities;//List to store original quantities
 
         public delegate void CaloriesExceededHandler(string message);
         public event CaloriesExceededHandler OnCaloriesExceeded;
@@ -25,12 +27,14 @@ namespace RecipeApplication
             Name = name;
             IngredientsList = new List<Ingredients>();
             Steps = new List<string>();
+            OriginalQuantities = new List<double>();
         }
         //-----------------------------------------------------------------------
         public void AddIngredient(Ingredients ingredient)
         {
             //Adds ingredients object to ingredients list
             IngredientsList.Add(ingredient);
+            OriginalQuantities.Add(ingredient.Quantity);
         }
         //-----------------------------------------------------------------------
         public void AddStep(string description)
@@ -57,14 +61,14 @@ namespace RecipeApplication
                 Console.WriteLine();
             }
 
-            Console.ForegroundColor= ConsoleColor.Cyan;//Declaring colour of text
+            Console.ForegroundColor = ConsoleColor.Cyan;//Declaring colour of text
             Console.WriteLine("----Instructions----", Console.ForegroundColor);
             Console.ResetColor();//Resets colour of text to default
 
             for (int i = 0; i < Steps.Count; i++)//For Loop that loops according to the length of the steps array
             {
-                Console.WriteLine("Step " + (i + 1) + ":");
-                Console.WriteLine("Description: " + Steps[i]);
+                Console.WriteLine("Step " + (i + 1) + ":");//Prints step number
+                Console.WriteLine("Description: " + Steps[i]);//Prints step description taken from list
                 Console.WriteLine();
             }
         }
@@ -73,31 +77,44 @@ namespace RecipeApplication
         {
             for (int i = 0; i < IngredientsList.Count; i++)//For Loop that loops according to the length of the ingredients list
             {
-                IngredientsList[i].Quantity *= factor;//Multiplies the value of quantity by the value of factor
+                IngredientsList[i].Quantity = OriginalQuantities[i] * factor;//Multiplies the value of quantity by the value of factor
             }
         }
         //-----------------------------------------------------------------------
         public void ResetQuantities()
         {
-            for (int i = 0; i < IngredientsList.Count; i++)//For Loop that loops according to the length of the ingredients array
+            Console.WriteLine("Are you sure you want to reset the quantities? (Y/N)");//Asks user for confirmation
+            string confirmation = Console.ReadLine();
+
+            if (confirmation.ToUpper() == "Y")//If user enters Y, then reset quantities
             {
-                IngredientsList[i].Quantity = 0;//Resets the value of quantity to zero
+                for (int i = 0; i < IngredientsList.Count; i++)//For Loop that loops according to the length of the ingredients array
+                {
+                    IngredientsList[i].Quantity = OriginalQuantities[i];//Resets the value of quantity to original values
+                }
+                Console.WriteLine("Quantities reset successfully.");//Prints message to user
+            }
+            else//If user enters N, then cancel reset
+            {
+                Console.WriteLine("Quantities reset cancelled.");//Prints message to user
             }
         }
         //-----------------------------------------------------------------------
         public void ClearRecipe()//Clears data of every field for recipe
         {
-            Name = "";
-            IngredientsList.Clear();
-            Steps.Clear();
+            Name = "";//Clears name
+            IngredientsList.Clear();//Clears ingredients list
+            Steps.Clear();//Clears steps list
         }
         //-----------------------------------------------------------------------
-        public void CheckCalories()
+        public void CheckCalories()//Method to check if total calories exceed 300 and display message to user
         {
-            double totalCalories = IngredientsList.Sum(ingredient => ingredient.Calories);
+            double totalCalories = IngredientsList.Sum(ingredient => ingredient.Calories);//Calculates total calories of ingredients
             if (totalCalories > 300)
             {
-                OnCaloriesExceeded?.Invoke($"Total calories for {Name} exceed 300");
+                OnCaloriesExceeded?.Invoke("Total calories exceed 300");//Invokes event if total calories exceed 300
+                Console.WriteLine("Total calories exceed 300");//Prints message to user
+                Console.WriteLine();
             }
         }
         //-----------------------------------------------------------------------

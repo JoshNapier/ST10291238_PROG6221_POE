@@ -11,9 +11,9 @@ namespace RecipeApplication
 /// Module: PROG6221
 /// </summary>
 //-----------------------------------------------------------------------
-    internal class Program
+    public class Program
     {
-        private static List<Recipes> recipeList = new List<Recipes>();//List for recipe objects
+        public static List<Recipes> recipeList = new List<Recipes>();//List for recipe objects
 
         //-----------------------------------------------------------------------
         static void Main(string[] args)
@@ -35,32 +35,34 @@ namespace RecipeApplication
                 switch (option)//Switch case for choosing option
                 {
                     case 1:
-                        recipe.NewRecipe();
+                        Recipes newRecipe = recipe.NewRecipe();//Creates a new recipe object
+                        if (newRecipe != null)
+                        {
+                            recipeList.Add(newRecipe);//Adds new recipe object to recipe list
+                        }
                         break;
                     case 2:
-                        if (recipeList.Count == 0)
-                        {
-                            Console.WriteLine("No recipes to display");
-                            Console.WriteLine();
-                        }
-                        else
-                        {
-                            DisplayRecipes();
-                        }
+                        DisplayRecipes(recipeList);//Displays recipes
                         break;
                     case 3:
-                        Environment.Exit(0);
+                        Environment.Exit(0);//Exits program
                         break;
                     default:
-                        Console.WriteLine("Invalid choice");
+                        Console.WriteLine("Invalid choice");//Error message if invalid choice is entered
                         break;
                 }
             }
 
         }
         //-----------------------------------------------------------------------
-        public static void DisplayRecipes()
+        public static void DisplayRecipes(List<Recipes> recipes)//Method to display recipes
         {
+            if (recipes.Count == 0)
+            {
+                Console.WriteLine("No recipes to display");//Error message if there are no recipes to display
+                return;
+            }
+
             var sortedRecipes = recipeList.OrderBy(r => r.Name).ToList();//Sorts recipes in alphabetical order
 
             Console.WriteLine("List of Recipes:");
